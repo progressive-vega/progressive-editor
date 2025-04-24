@@ -96,7 +96,15 @@ class ConfigEditor extends React.PureComponent<Props> {
         }}
       >
         <MonacoEditor
-          defaultLanguage="json"
+          // ① Prima che Monaco si mounti, disabilito la validazione di schema JSON
+          beforeMount={(monaco) => {
+            monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+              validate: false,
+              allowComments: true, // se usi jsonc
+              enableSchemaRequest: false,
+            });
+          }}
+          language="jsonc"
           options={{
             cursorBlinking: 'smooth',
             folding: true,
@@ -105,9 +113,7 @@ class ConfigEditor extends React.PureComponent<Props> {
             scrollBeyondLastLine: false,
             wordWrap: 'on',
             quickSuggestions: true,
-            stickyScroll: {
-              enabled: false,
-            },
+            stickyScroll: {enabled: false},
           }}
           onChange={debounce(700, this.handleEditorChange)}
           defaultValue={this.props.configEditorString}

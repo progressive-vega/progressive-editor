@@ -66,7 +66,8 @@ class Header extends React.PureComponent<PropsType, State> {
       }
     });
 
-    try {
+    /* TO AVOID CORS
+     try {
       const response = await fetch(`${BACKEND_URL}auth/github/check`, {
         credentials: 'include',
       });
@@ -75,7 +76,7 @@ class Header extends React.PureComponent<PropsType, State> {
       this.props.receiveCurrentUser(isAuthenticated, handle, name, profilePicUrl);
     } catch (error) {
       console.error(error);
-    }
+    } */
 
     window.addEventListener('message', async (e) => {
       if (e.data.type === 'auth') {

@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "allOf": [
+    {
+      "$ref": "https://vega.github.io/schema/vega-lite/v6.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "progress_bar": { "type": "boolean" },
+            "progress_controls": { "type": "boolean" },
+            "chunking": {
+              "type": "object",
+              "properties": {
+                "type": { "enum": ["data"] },
+                "reading": {
+                  "type": "object",
+                  "properties": {
+                    "method": { "enum": ["sequential", "random"] },
+                    "asc": { "type": "boolean" },
+                    "size": { "type": "number" },
+                    "freq": { "type": "number" }
+                  },
+                  "required": ["method", "asc", "size", "freq"]
+                }
+              },
+              "required": ["type", "reading"]
+            }
+          }
+        }
+      }
+    }
+  ]
+}
